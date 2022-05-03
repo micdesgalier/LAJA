@@ -1,0 +1,182 @@
+DROP DATABASE IF EXISTS LAJA_GESTION;
+
+CREATE DATABASE IF NOT EXISTS LAJA_GESTION;
+USE LAJA_GESTION;
+# -----------------------------------------------------------------------------
+#       TABLE : SONDEUR
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS SONDEUR
+ (
+   ID_SONDEUR INTEGER NOT NULL AUTO_INCREMENT ,
+   LOGIN VARCHAR(128) NOT NULL  ,
+   MOT_DE_PASSE CHAR(255) NOT NULL  
+   , PRIMARY KEY (ID_SONDEUR) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       TABLE : CODE
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS CODE
+ (
+   ID_CODE INTEGER NOT NULL AUTO_INCREMENT ,
+   ID_SONDAGE INTEGER NOT NULL  ,
+   ID_SONDE INTEGER NOT NULL  ,
+   CODE CHAR(255) NOT NULL  
+   , PRIMARY KEY (ID_CODE) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE CODE
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_CODE_SONDAGE
+     ON CODE (ID_SONDAGE ASC);
+
+CREATE  INDEX I_FK_CODE_SONDE
+     ON CODE (ID_SONDE ASC);
+
+# -----------------------------------------------------------------------------
+#       TABLE : SONDE
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS SONDE
+ (
+   ID_SONDE INTEGER NOT NULL AUTO_INCREMENT ,
+   LOGIN VARCHAR(128) NOT NULL  ,
+   MOT_DE_PASSE CHAR(255) NOT NULL  
+   , PRIMARY KEY (ID_SONDE) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       TABLE : QUESTION
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS QUESTION
+ (
+   ID_QUESTION INTEGER NOT NULL AUTO_INCREMENT ,
+   ID_SONDAGE INTEGER NOT NULL  ,
+   QUESTION VARCHAR(128) NOT NULL  
+   , PRIMARY KEY (ID_QUESTION) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE QUESTION
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_QUESTION_SONDAGE
+     ON QUESTION (ID_SONDAGE ASC);
+
+# -----------------------------------------------------------------------------
+#       TABLE : CHOIX
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS CHOIX
+ (
+   ID_CHOIX INTEGER NOT NULL AUTO_INCREMENT ,
+   ID_QUESTION INTEGER NOT NULL  ,
+   CHOIX VARCHAR(100) NOT NULL  ,
+   NB_CHOISI INTEGER NOT NULL  
+      DEFAULT 0
+   , PRIMARY KEY (ID_CHOIX) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE CHOIX
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_CHOIX_QUESTION
+     ON CHOIX (ID_QUESTION ASC);
+
+# -----------------------------------------------------------------------------
+#       TABLE : SONDAGE
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS SONDAGE
+ (
+   ID_SONDAGE INTEGER NOT NULL AUTO_INCREMENT ,
+   ID_SONDEUR INTEGER NOT NULL  ,
+   SUJET VARCHAR(100) NOT NULL  
+   , PRIMARY KEY (ID_SONDAGE) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE SONDAGE
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_SONDAGE_SONDEUR
+     ON SONDAGE (ID_SONDEUR ASC);
+
+# -----------------------------------------------------------------------------
+#       TABLE : GÉNERER
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS GÉNERER
+ (
+   ID_SONDAGE INTEGER NOT NULL  ,
+   ID_CODE INTEGER NOT NULL  
+   , PRIMARY KEY (ID_SONDAGE,ID_CODE) 
+ ) 
+ comment = "";
+
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE GÉNERER
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_GÉNERER_SONDAGE
+     ON GÉNERER (ID_SONDAGE ASC);
+
+CREATE  INDEX I_FK_GÉNERER_CODE
+     ON GÉNERER (ID_CODE ASC);
+
+
+# -----------------------------------------------------------------------------
+#       CREATION DES REFERENCES DE TABLE
+# -----------------------------------------------------------------------------
+
+
+ALTER TABLE CODE 
+  ADD FOREIGN KEY FK_CODE_SONDAGE (ID_SONDAGE)
+      REFERENCES SONDAGE (ID_SONDAGE) ;
+
+
+ALTER TABLE CODE 
+  ADD FOREIGN KEY FK_CODE_SONDE (ID_SONDE)
+      REFERENCES SONDE (ID_SONDE) ;
+
+
+ALTER TABLE QUESTION 
+  ADD FOREIGN KEY FK_QUESTION_SONDAGE (ID_SONDAGE)
+      REFERENCES SONDAGE (ID_SONDAGE) ;
+
+
+ALTER TABLE CHOIX 
+  ADD FOREIGN KEY FK_CHOIX_QUESTION (ID_QUESTION)
+      REFERENCES QUESTION (ID_QUESTION) ;
+
+
+ALTER TABLE SONDAGE 
+  ADD FOREIGN KEY FK_SONDAGE_SONDEUR (ID_SONDEUR)
+      REFERENCES SONDEUR (ID_SONDEUR) ;
+
+
+ALTER TABLE GÉNERER 
+  ADD FOREIGN KEY FK_GÉNERER_SONDAGE (ID_SONDAGE)
+      REFERENCES SONDAGE (ID_SONDAGE) ;
+
+
+ALTER TABLE GÉNERER 
+  ADD FOREIGN KEY FK_GÉNERER_CODE (ID_CODE)
+      REFERENCES CODE (ID_CODE) ;
