@@ -50,7 +50,6 @@ public class SondeursEndPoint implements SondeursApi {
             sondeur.setIdSondeur(sondeurEntity.getId());
             sondeur.setLogin(sondeurEntity.getLogin());
             sondeur.setMotDePasse(sondeurEntity.getMotDePasse());
-            System.out.println("GET: " + sondeur.getMotDePasse());
             sondeurs.add(sondeur);
         }
         return new ResponseEntity<List<Sondeur>>(sondeurs,HttpStatus.OK);
@@ -60,8 +59,6 @@ public class SondeursEndPoint implements SondeursApi {
         SondeurEntity sondeurEntity = new SondeurEntity();
         sondeurEntity.setLogin(sondeur.getLogin());
         sondeurEntity.setMotDePasse(sondeur.getMotDePasse());
-
-        System.out.println("POST: " + sondeur.getMotDePasse());
 
         SondeurEntity sondeurAdded = sondeurRepository.save(sondeurEntity);
         URI uri = ServletUriComponentsBuilder
