@@ -42,10 +42,10 @@
                                 <swaggerDocketConfig>false</swaggerDocketConfig>
                                 <interfaceOnly>true</interfaceOnly>
                                 <delegatePattern>false</delegatePattern>
-                                <apiPackage>ch.es.md.anonymvote-gestion.api</apiPackage>
-                                <configPackage>ch.es.md.anonymvote-gestion.config</configPackage>
-                                <basePackage>ch.es.md.anonymvote-gestion</basePackage>
-                                <modelPackage>ch.es.md.anonymvote-gestion.api.model</modelPackage>
+                                <apiPackage>ch.es.md.gestion.api</apiPackage>
+                                <configPackage>ch.es.md.gestion.config</configPackage>
+                                <basePackage>ch.es.md.gestion</basePackage>
+                                <modelPackage>ch.es.md.gestion.api.model</modelPackage>
                             </configOptions>
                         </configuration>
                     </execution>
@@ -81,6 +81,17 @@
             <groupId>io.swagger.parser.v3</groupId>
             <artifactId>swagger-parser</artifactId>
             <version>2.0.16</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.24</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
         </dependency>
     </dependencies>
 </project>

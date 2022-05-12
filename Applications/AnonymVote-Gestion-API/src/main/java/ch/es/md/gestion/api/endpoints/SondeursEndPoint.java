@@ -1,11 +1,13 @@
 
 package ch.es.md.gestion.api.endpoints;
 
-import ch.es.md.gestion.Entities.SondeurEntity;
 import ch.es.md.gestion.api.SondeursApi;
-import ch.es.md.gestion.api.exceptions.SondeurNotFoundException;
+import ch.es.md.gestion.api.SondeursApi;
+import ch.es.md.gestion.Entities.SondeurEntity;
 import ch.es.md.gestion.api.model.Sondeur;
+import ch.es.md.gestion.api.exceptions.SondeurNotFoundException;
 import ch.es.md.gestion.repositories.SondeurRepository;
+import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +39,7 @@ public class SondeursEndPoint implements SondeursApi {
             sondeur.setIdSondeur(sondeurEntity.getId());
             sondeur.setLogin(sondeurEntity.getLogin());
             sondeur.setMotDePasse(sondeurEntity.getMotDePasse());
+            System.out.println("GET: " + sondeur.getMotDePasse());
             sondeurs.add(sondeur);
         }
         return new ResponseEntity<List<Sondeur>>(sondeurs,HttpStatus.OK);
@@ -46,6 +49,9 @@ public class SondeursEndPoint implements SondeursApi {
         SondeurEntity sondeurEntity = new SondeurEntity();
         sondeurEntity.setLogin(sondeur.getLogin());
         sondeurEntity.setMotDePasse(sondeur.getMotDePasse());
+
+        System.out.println("POST: " + sondeur.getMotDePasse());
+
         SondeurEntity sondeurAdded = sondeurRepository.save(sondeurEntity);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -65,7 +71,7 @@ public class SondeursEndPoint implements SondeursApi {
             sondeur.setMotDePasse(sondeurEntity.getMotDePasse());
             return new ResponseEntity<Sondeur>(sondeur, HttpStatus.OK);
         } else {
-            //return ResponseEntity.notFound().build();
+
             throw new SondeurNotFoundException(id);
         }
     }

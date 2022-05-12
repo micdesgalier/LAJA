@@ -27,7 +27,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-05-10T12:50:36.192684100+02:00[Europe/Paris]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-05-12T09:04:34.130625100+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "sondeurs", description = "the sondeurs API")
 public interface SondeursApi {
@@ -81,7 +81,7 @@ public interface SondeursApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"id_sondeur\" : 0, \"mot_de_passe\" : \"mot_de_passe\", \"login\" : \"login\" }";
+                    String exampleString = "{ \"motDePasse\" : \"motDePasse\", \"id_sondeur\" : 0, \"login\" : \"login\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
@@ -114,7 +114,7 @@ public interface SondeursApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"id_sondeur\" : 0, \"mot_de_passe\" : \"mot_de_passe\", \"login\" : \"login\" }";
+                    String exampleString = "{ \"motDePasse\" : \"motDePasse\", \"id_sondeur\" : 0, \"login\" : \"login\" }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }

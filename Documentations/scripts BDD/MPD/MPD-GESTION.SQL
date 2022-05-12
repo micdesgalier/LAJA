@@ -121,10 +121,10 @@ CREATE  INDEX I_FK_SONDAGE_SONDEUR
      ON SONDAGE (ID_SONDEUR ASC);
 
 # -----------------------------------------------------------------------------
-#       TABLE : GÉNERER
+#       TABLE : GENERER
 # -----------------------------------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS GÉNERER
+CREATE TABLE IF NOT EXISTS GENERER
  (
    ID_SONDAGE INTEGER NOT NULL  ,
    ID_CODE INTEGER NOT NULL  
@@ -133,15 +133,15 @@ CREATE TABLE IF NOT EXISTS GÉNERER
  comment = "";
 
 # -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE GÉNERER
+#       INDEX DE LA TABLE GENERER
 # -----------------------------------------------------------------------------
 
 
-CREATE  INDEX I_FK_GÉNERER_SONDAGE
-     ON GÉNERER (ID_SONDAGE ASC);
+CREATE  INDEX I_FK_GENERER_SONDAGE
+     ON GENERER (ID_SONDAGE ASC);
 
-CREATE  INDEX I_FK_GÉNERER_CODE
-     ON GÉNERER (ID_CODE ASC);
+CREATE  INDEX I_FK_GENERER_CODE
+     ON GENERER (ID_CODE ASC);
 
 
 # -----------------------------------------------------------------------------
@@ -174,12 +174,12 @@ ALTER TABLE SONDAGE
       REFERENCES SONDEUR (ID_SONDEUR) ;
 
 
-ALTER TABLE GÉNERER 
-  ADD FOREIGN KEY FK_GÉNERER_SONDAGE (ID_SONDAGE)
+ALTER TABLE GENERER 
+  ADD FOREIGN KEY FK_GENERER_SONDAGE (ID_SONDAGE)
       REFERENCES SONDAGE (ID_SONDAGE) ;
 
 
-ALTER TABLE GÉNERER 
-  ADD FOREIGN KEY FK_GÉNERER_CODE (ID_CODE)
+ALTER TABLE GENERER 
+  ADD FOREIGN KEY FK_GENERER_CODE (ID_CODE)
       REFERENCES CODE (ID_CODE) ;
 

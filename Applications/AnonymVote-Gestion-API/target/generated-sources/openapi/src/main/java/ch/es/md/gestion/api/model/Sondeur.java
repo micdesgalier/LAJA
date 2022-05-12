@@ -1,4 +1,4 @@
-package ch.es.md.anonymvote_gestion.api.model;
+package ch.es.md.gestion.api.model;
 
 import java.net.URI;
 import java.util.Objects;
@@ -18,12 +18,12 @@ import java.util.*;
 /**
  * Sondeur
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-05-10T12:50:36.192684100+02:00[Europe/Paris]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-05-12T09:04:34.130625100+02:00[Europe/Paris]")
 public class Sondeur   {
   @JsonProperty("login")
   private String login;
 
-  @JsonProperty("mot_de_passe")
+  @JsonProperty("motDePasse")
   private String motDePasse;
 
   @JsonProperty("id_sondeur")

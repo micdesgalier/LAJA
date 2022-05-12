@@ -92,7 +92,7 @@ components:
       properties:
         login:
           type: string
-        mot_de_passe:
+        motDePasse:
           type: string
         id_sondeur:
           type: integer
