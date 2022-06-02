@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiDocumentationConfig {
 
     @Bean
-    public OpenAPI springQuotesOpenAPI() {
+    public OpenAPI springGestionOpenAPI() {
         return new OpenAPI()
                 .info(new Info().title("Gestion API")
-                        .description("Sondeurs sample application")
+                        .description("Gestion sample application")
                         .version("v0.0.1")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")));
     }

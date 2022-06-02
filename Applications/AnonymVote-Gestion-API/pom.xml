@@ -34,7 +34,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${basedir}/src/main/resources/sondeur.yaml</inputSpec>
+                            <inputSpec>${basedir}/src/main/resources/gestion.yaml</inputSpec>
                             <generatorName>spring</generatorName>
                             <configOptions>
                                 <oas3>true</oas3>

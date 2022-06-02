@@ -1,5 +1,6 @@
 package ch.es.md.gestion;
 
+
 import ch.es.md.gestion.api.util.AuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,10 +19,10 @@ public class Swagger2SpringBoot implements CommandLineRunner {
     private AuthFilter authFilter;
 
     @Bean
-    public FilterRegistrationBean< AuthFilter > filterRegistrationBean() {
+    public FilterRegistrationBean<AuthFilter> filterRegistrationBean() {
         FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(authFilter);
-        registrationBean.addUrlPatterns("/sondeurs/*");
+        registrationBean.addUrlPatterns("/utilisateurs/*");
         return registrationBean;
     }
 

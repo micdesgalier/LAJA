@@ -1,0 +1,11 @@
+ch\es\md\reponses\Swagger2SpringBoot$ExitException.class
+ch\es\md\reponses\api\endpoints\ReponsesEndPoint.class
+ch\es\md\reponses\configuration\OpenApiDocumentationConfig.class
+ch\es\md\reponses\api\ReponsesApi.class
+ch\es\md\reponses\api\ApiUtil.class
+ch\es\md\reponses\api\model\Reponse.class
+ch\es\md\reponses\Entities\ReponseEntity.class
+ch\es\md\reponses\configuration\HomeController.class
+ch\es\md\reponses\api\exceptions\ReponseNotFoundException.class
+ch\es\md\reponses\Swagger2SpringBoot.class
+ch\es\md\reponses\repositories\ReponseRepository.class

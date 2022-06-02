@@ -1,5 +1,14 @@
+.openapi-generator-ignore
 README.md
 pom.xml
 src/main/java/ch/es/md/gestion/api/ApiUtil.java
-src/main/java/ch/es/md/gestion/api/SondeursApi.java
-src/main/java/ch/es/md/gestion/api/model/Sondeur.java
+src/main/java/ch/es/md/gestion/api/ChoixApi.java
+src/main/java/ch/es/md/gestion/api/CodesApi.java
+src/main/java/ch/es/md/gestion/api/QuestionsApi.java
+src/main/java/ch/es/md/gestion/api/SondagesApi.java
+src/main/java/ch/es/md/gestion/api/UtilisateursApi.java
+src/main/java/ch/es/md/gestion/api/model/Choix.java
+src/main/java/ch/es/md/gestion/api/model/Code.java
+src/main/java/ch/es/md/gestion/api/model/Question.java
+src/main/java/ch/es/md/gestion/api/model/Sondage.java
+src/main/java/ch/es/md/gestion/api/model/Utilisateur.java

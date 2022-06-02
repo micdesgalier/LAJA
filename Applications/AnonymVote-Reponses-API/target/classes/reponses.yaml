@@ -1,0 +1,212 @@
+openapi: '3.0.3'
+info:
+  description: Api Documentation
+  version: '1.0'
+  title: Api Documentation
+tags:
+  - name: reponses-end-point
+    description: Reponses-API
+paths:
+  /reponses:
+    get:
+      tags:
+        - reponses-end-point
+      description: Liste toutes les reponses
+      operationId: listReponsesUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    post:
+      tags:
+        - reponses-end-point
+      summary: addReponse
+      operationId: addReponseUsingPOST
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Reponse'
+      responses:
+        '200':
+          description: OK
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /reponses/{id}:
+    get:
+      tags:
+        - reponses-end-point
+      summary: listReponse
+      operationId: listReponseUsingGET
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Reponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+    delete:
+      tags:
+        - reponses-end-point
+      summary: deleteReponse
+      operationId: deleteReponseUsingID
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /reponses/{code}:
+    get:
+      tags:
+        - reponses-end-point
+      description: Liste toutes les reponses en fonction d'un code
+      operationId: listReponsesUsingCode
+      parameters:
+        - name: code
+          in: path
+          description: code
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /reponses/{idQuestion}:
+    get:
+      tags:
+        - reponses-end-point
+      description: Liste toutes les reponses en fonction d'une question
+      operationId: listReponsesUsingIdQuestion
+      parameters:
+        - name: idQuestion
+          in: path
+          description: idQuestion
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /reponses/{idChoix}:
+    get:
+      tags:
+        - reponses-end-point
+      description: Liste toutes les reponses en fonction d'une question
+      operationId: listReponsesUsingIdChoix
+      parameters:
+        - name: idChoix
+          in: path
+          description: idChoix
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+components:
+  schemas:
+    Reponse:
+      type: object
+      properties:
+        id_reponse:
+          type: integer
+          format: int32
+        id_question:
+          type: integer
+          format: int32
+        id_choix:
+          type: integer
+          format: int32
+        code:
+          type: string
+      title: Reponse
+servers:
+  - url: 'https'
