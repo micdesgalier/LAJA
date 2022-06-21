@@ -1,34 +1,34 @@
 <template>
-  <div class="userSondages">
+  <div class="mySondages">
     <h1>{{ this.nomUtilisateur }}</h1>
-    <h2>Liste des sondages auquels vous avez accès</h2>
-    <sondages-list :sondages="userSondagesList"/>
+    <h2>Liste des sondages créé par l'utilisateur</h2>
+    <my-sondages-list :sondages="mySondagesList"/>
   </div>
 </template>
 
 <script>
 import SondageService from '../store/modules/SondageService.js'
-import SondagesList from './SondagesList.vue'
+import MySondagesList from './MySondagesList.vue'
 import Login from '../store/modules/Login.js'
 
 export default {
-  name: 'UserSondages',
+  name: 'MySondages',
   components: {
-    SondagesList
+    MySondagesList
   },
   data() {
 		return {
-      nomUtilisateur: "",
-			userSondagesList: []
+            nomUtilisateur: "",
+			mySondagesList: []
 		};
 	},
   methods: {
-    getSondagesUtilisateur(login) {
+    getMySondages(login) {
 
-        SondageService.sondagesUtilisateur(login)
+        SondageService.sondagesOwnByUtilisateur(login)
           .then(data => {
             data.forEach(element => {
-              this.userSondagesList.push(element);
+              this.mySondagesList.push(element);
             });
             this.nomUtilisateur = Login.login;
           })
@@ -36,7 +36,7 @@ export default {
     }
   },
   created() {
-    this.getSondagesUtilisateur(Login.login);
+    this.getMySondages(Login.login);
   }
 }
 </script>

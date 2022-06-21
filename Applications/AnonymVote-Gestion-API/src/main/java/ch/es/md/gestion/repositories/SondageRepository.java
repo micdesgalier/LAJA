@@ -13,8 +13,11 @@ import java.util.List;
 public interface SondageRepository extends JpaRepository<SondageEntity, Integer> {
     SondageEntity findById(int id);
 
-    @Query("select s from sondage s inner join code c on s.id_sondage = c.id_sondage inner join utilisateur u on c.id_utilisateur = u.id_utilisateur where u.login = ?1")
+    @Query("select s from sondage s inner join code c on s.id_sondage = c.id_sondage inner join utilisateur u on c.id_utilisateur = u.id_utilisateur where u.login = ?1 AND s.id_utilisateur <> u.id_utilisateur")
     List<SondageEntity> findAllSondagesUtilisateur(String login);
+
+    @Query("select s from sondage s inner join code c on s.id_sondage = c.id_sondage inner join utilisateur u on c.id_utilisateur = u.id_utilisateur where u.login = ?1 AND s.id_utilisateur = u.id_utilisateur")
+    List<SondageEntity> findAllSondagesOwnByUtilisateur(String login);
 
     @Query("select s from sondage s where s.ouvert = true")
     List<SondageEntity> findAllSondagesOuverts();
@@ -27,4 +30,7 @@ public interface SondageRepository extends JpaRepository<SondageEntity, Integer>
 
     @Query("select q from question q where q.id_sondage = ?1")
     List<QuestionEntity> findAllQuestionBySondageId(Integer id);
+
+    @Query("select max(s.id_sondage) from sondage s")
+    Integer findLastSondageId();
 }

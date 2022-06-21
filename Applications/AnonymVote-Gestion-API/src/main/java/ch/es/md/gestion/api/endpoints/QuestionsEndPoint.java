@@ -3,21 +3,17 @@ package ch.es.md.gestion.api.endpoints;
 
 import ch.es.md.gestion.Entities.ChoixEntity;
 import ch.es.md.gestion.Entities.QuestionEntity;
-import ch.es.md.gestion.Entities.SondageEntity;
-import ch.es.md.gestion.Entities.UtilisateurEntity;
 import ch.es.md.gestion.api.QuestionsApi;
 import ch.es.md.gestion.api.exceptions.QuestionNotFoundException;
-import ch.es.md.gestion.api.exceptions.UtilisateurNotFoundException;
 import ch.es.md.gestion.api.model.Choix;
 import ch.es.md.gestion.api.model.Question;
-import ch.es.md.gestion.api.model.Sondage;
-import ch.es.md.gestion.api.model.Utilisateur;
 import ch.es.md.gestion.repositories.QuestionRepository;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -29,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@SecurityRequirement(name = "bearerAuth")
+@CrossOrigin
 public class QuestionsEndPoint implements QuestionsApi {
     @Autowired
     private QuestionRepository questionRepository;
@@ -105,13 +101,19 @@ public class QuestionsEndPoint implements QuestionsApi {
     }
 
     @Override
+    public ResponseEntity<Integer> listLastQuestionUsingGET() {
+        Integer lastId = questionRepository.findLastQuestionId();
+
+        return new ResponseEntity<Integer>(lastId, HttpStatus.OK);
+    }
+
+    @Override
     @Transactional
     public ResponseEntity<Void> updateQuestionUsingID(Integer id, @RequestBody Question question) {
         Optional<QuestionEntity> opt = questionRepository.findById(id);
 
         if (opt.isPresent()) {
             QuestionEntity questionEntity = opt.get();
-            questionEntity.setId(question.getIdQuestion());
             questionEntity.setIdSondage(question.getIdSondage());
             questionEntity.setQuestion(question.getQuestion());
 

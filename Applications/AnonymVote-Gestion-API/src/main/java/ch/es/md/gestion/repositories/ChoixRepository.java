@@ -8,5 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ChoixRepository extends JpaRepository<ChoixEntity, Integer> {
+    @Query("select max(c.id_choix) from choix c")
+    Integer findLastChoixId();
     ChoixEntity findById(int id);
 }

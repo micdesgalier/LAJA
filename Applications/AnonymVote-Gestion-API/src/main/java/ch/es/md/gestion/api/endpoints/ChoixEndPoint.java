@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,7 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@SecurityRequirement(name = "bearerAuth")
+@CrossOrigin
 public class ChoixEndPoint implements ChoixApi {
     @Autowired
     private ChoixRepository choixRepository;
@@ -87,13 +88,19 @@ public class ChoixEndPoint implements ChoixApi {
     }
 
     @Override
+    public ResponseEntity<Integer> listLastChoixUsingGET() {
+        Integer lastId = choixRepository.findLastChoixId();
+
+        return new ResponseEntity<Integer>(lastId, HttpStatus.OK);
+    }
+
+    @Override
     @Transactional
     public ResponseEntity<Void> updateChoixUsingID(Integer id, @RequestBody Choix choix) {
         Optional<ChoixEntity> opt = choixRepository.findById(id);
 
         if (opt.isPresent()) {
             ChoixEntity choixEntity = opt.get();
-            choixEntity.setId(choix.getIdChoix());
             choixEntity.setIdQuestion(choix.getIdQuestion());
             choixEntity.setChoix(choix.getChoix());
             choixEntity.setNbChoisi(choix.getNbChoisi());

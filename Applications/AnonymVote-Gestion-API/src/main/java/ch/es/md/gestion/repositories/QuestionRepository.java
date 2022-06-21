@@ -13,6 +13,8 @@ import java.util.List;
 @Repository
 public interface QuestionRepository extends JpaRepository<QuestionEntity, Integer> {
     QuestionEntity findById(int id);
+    @Query("select max(q.id_question) from question q")
+    Integer findLastQuestionId();
     @Query("select c from choix c where c.id_question = ?1")
     List<ChoixEntity> findAllChoixByQuestionId(int id);
 }

@@ -20,12 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.transaction.Transactional;
+import java.io.Console;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,7 +35,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@SecurityRequirement(name = "bearerAuth")
+@CrossOrigin
 public class SondagesEndPoint implements SondagesApi {
     @Autowired
     private SondageRepository sondageRepository;
@@ -68,6 +70,27 @@ public class SondagesEndPoint implements SondagesApi {
 
         List<Sondage> sondages  = new ArrayList<>();
         for (SondageEntity sondageEntity : sondageEntities) {
+
+            Sondage sondage = new Sondage();
+            sondage.setIdSondage(sondageEntity.getId());
+            sondage.setIdUtilisateur(sondageEntity.getIdUtilisateur());
+            sondage.setSujet(sondageEntity.getSujet());
+            sondage.setOuvert(sondageEntity.isOuvert());
+            sondage.setBloque(sondageEntity.isBloque());
+            sondages.add(sondage);
+        }
+        return new ResponseEntity<List<Sondage>>(sondages,HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<Sondage>> listSondagesOwnByUtilisateurUsingGET(String login) {
+
+        List<SondageEntity> sondageEntities = null;
+        sondageEntities = sondageRepository.findAllSondagesOwnByUtilisateur(login);
+
+        List<Sondage> sondages  = new ArrayList<>();
+        for (SondageEntity sondageEntity : sondageEntities) {
+
             Sondage sondage = new Sondage();
             sondage.setIdSondage(sondageEntity.getId());
             sondage.setIdUtilisateur(sondageEntity.getIdUtilisateur());
@@ -134,6 +157,12 @@ public class SondagesEndPoint implements SondagesApi {
             sondages.add(sondage);
         }
         return new ResponseEntity<List<Sondage>>(sondages,HttpStatus.OK);
+    }
+    @Override
+    public ResponseEntity<Integer> listLastSondageUsingGET() {
+        Integer lastId = sondageRepository.findLastSondageId();
+
+        return new ResponseEntity<Integer>(lastId, HttpStatus.OK);
     }
 
     @Override

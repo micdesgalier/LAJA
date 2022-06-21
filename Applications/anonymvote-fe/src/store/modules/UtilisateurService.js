@@ -1,5 +1,6 @@
 import axios from 'axios'
 import router from '@/router'
+import Login from './Login.js'
 
 class UtilisateurService {
     
@@ -7,14 +8,29 @@ class UtilisateurService {
 
         const params = new URLSearchParams([['login', login], ['password', password]]);
 
-        axios.get('http://localhost:9090/api/tokens', {params})
+        axios.get('http://localhost:9090/api/connexion', {params})
             .then(res => {
                 this.token = res.data;
 
-                if(this.token != null)
+                if(this.token != null) {
+                    Login.login = login;
                     router.push({name: 'main'});
+                } 
             })
             .catch(err => console.log(err));
+    }
+
+    static getUtilisateurByLogin(login) {
+
+        alert(login);
+
+        const promise = axios.get('http://localhost:9090/api/utilisateurs/login/' + login)
+        
+        const dataPromise = promise.then((response) => response.data)
+
+        console.log
+
+        return dataPromise;
     }
 }
 

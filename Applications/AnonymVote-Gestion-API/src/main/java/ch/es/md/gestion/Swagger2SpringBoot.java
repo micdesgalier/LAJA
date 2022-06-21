@@ -22,7 +22,7 @@ public class Swagger2SpringBoot implements CommandLineRunner {
     public FilterRegistrationBean<AuthFilter> filterRegistrationBean() {
         FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(authFilter);
-        registrationBean.addUrlPatterns("/utilisateurs/*");
+        registrationBean.addUrlPatterns("/none/*");
         return registrationBean;
     }
 

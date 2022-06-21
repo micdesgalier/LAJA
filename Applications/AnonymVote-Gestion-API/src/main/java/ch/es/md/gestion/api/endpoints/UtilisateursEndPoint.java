@@ -31,7 +31,6 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@SecurityRequirement(name = "bearerAuth")
 public class UtilisateursEndPoint implements UtilisateursApi {
     @Autowired
     private UtilisateurRepository utilisateurRepository;
@@ -93,6 +92,23 @@ public class UtilisateursEndPoint implements UtilisateursApi {
     }
 
     @Override
+    public ResponseEntity<Utilisateur> listUtilisateurByLogin(String login) {
+
+        UtilisateurEntity utilisateurEntity = utilisateurRepository.findByLogin(login);
+        if (utilisateurEntity != null) {
+            Utilisateur utilisateur = new Utilisateur();
+            utilisateur.setIdUtilisateur(utilisateurEntity.getId());
+            utilisateur.setLogin(utilisateurEntity.getLogin());
+            utilisateur.setMotDePasse(utilisateurEntity.getMotDePasse());
+            utilisateur.setType(utilisateurEntity.isType());
+            return new ResponseEntity<Utilisateur>(utilisateur, HttpStatus.OK);
+        } else {
+
+            throw new UtilisateurNotFoundException();
+        }
+    }
+
+    @Override
     @Transactional
     public ResponseEntity<Void> deleteUtilisateurUsingID(Integer id) {
         Optional<UtilisateurEntity> opt = utilisateurRepository.findById(id);
@@ -109,19 +125,32 @@ public class UtilisateursEndPoint implements UtilisateursApi {
         }
     }
 
-    @GetMapping(value="/tokens")
-    public ResponseEntity<String> requestToken(String login, String password) {
+    //@GetMapping(value="/tokens")
+    //public ResponseEntity<String> requestToken(String login, String password) {
+//
+    //    UtilisateurEntity utilisateur = utilisateurRepository.findByLogin(login);
+//
+    //    if (utilisateur != null) {
+    //        if(utilisateur.getMotDePasse().equals(password)) {
+    //            String token = Jwts.builder().setSubject(login).setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, secretKey).compact();
+    //            return new ResponseEntity<String>(token, HttpStatus.OK);
+    //        }else {
+    //            throw new LoginErrorException(login);
+    //        }
+    //    } else {
+//
+    //        throw new UtilisateurNotFoundException();
+    //    }
+    //}
+
+    @GetMapping(value="/connexion")
+    public ResponseEntity<String> connexion(String login, String password) {
 
         UtilisateurEntity utilisateur = utilisateurRepository.findByLogin(login);
 
-        System.out.println(login);
-        System.out.println(password);
-
         if (utilisateur != null) {
             if(utilisateur.getMotDePasse().equals(password)) {
-                String token = Jwts.builder().setSubject(login).setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, secretKey).compact();
-                System.out.println(token);
-                return new ResponseEntity<String>(token, HttpStatus.OK);
+                return new ResponseEntity<String>(utilisateur.getLogin(), HttpStatus.OK);
             }else {
                 throw new LoginErrorException(login);
             }

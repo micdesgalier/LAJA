@@ -27,7 +27,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-06-02T11:39:30.917961300+02:00[Europe/Paris]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-06-21T13:47:29.624415+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "choix", description = "the choix API")
 public interface ChoixApi {
@@ -139,6 +139,26 @@ public interface ChoixApi {
                 }
             }
         });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * GET /choix/lastid : ListLastChoix
+     *
+     * @return OK (status code 200)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not Found (status code 404)
+     */
+    @Operation(summary = "ListLastChoix", tags={ "choix-end-point", }, responses = {  @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation =  Integer.class))), @ApiResponse(responseCode = "401", description = "Unauthorized"), @ApiResponse(responseCode = "403", description = "Forbidden"), @ApiResponse(responseCode = "404", description = "Not Found") })
+        @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/choix/lastid",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<Integer> listLastChoixUsingGET() {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }

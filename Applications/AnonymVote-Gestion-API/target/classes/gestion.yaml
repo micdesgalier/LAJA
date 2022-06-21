@@ -102,6 +102,33 @@ paths:
         '404':
           description: Not Found
       deprecated: false
+  /utilisateurs/login/{login}:
+    get:
+      tags:
+        - utilisateurs-end-point
+      summary: listUtilisateur
+      operationId: listUtilisateurByLogin
+      parameters:
+        - name: login
+          in: path
+          description: login
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Utilisateur'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
   /sondages:
     get:
       tags:
@@ -234,6 +261,56 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Sondage'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /sondages/utilisateur/{login}/my:
+    get:
+      tags:
+        - sondages-end-point
+      description: Liste tout les sondages d'un utilisateur
+      operationId: listSondagesOwnByUtilisateurUsingGET
+      parameters:
+        - name: login
+          in: path
+          description: login
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sondage'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /sondages/lastid:
+    get:
+      tags:
+        - sondages-end-point
+      summary: ListLastSondage
+      operationId: ListLastSondageUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                type: integer
+                format: int32
         '401':
           description: Unauthorized
         '403':
@@ -442,6 +519,27 @@ paths:
         '404':
           description: Not Found
       deprecated: false
+  /questions/lastid:
+    get:
+      tags:
+        - questions-end-point
+      summary: ListLastQuestion
+      operationId: ListLastQuestionUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                type: integer
+                format: int32
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
   /questions/{id}:
     get:
       tags:
@@ -595,6 +693,27 @@ paths:
         '404':
           description: Not Found
       deprecated: false
+  /choix/lastid:
+    get:
+      tags:
+        - choix-end-point
+      summary: ListLastChoix
+      operationId: ListLastChoixUsingGET
+      responses:
+        '200':
+          description: OK
+          content:
+            'application/json':
+              schema:
+                type: integer
+                format: int32
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
   /choix/{id}:
     get:
       tags:
@@ -689,28 +808,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Code'
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: Not Found
-      deprecated: false
-    post:
-      tags:
-        - codes-end-point
-      summary: addCode
-      operationId: addCodeUsingPOST
-      requestBody:
-        content:
-          'application/json':
-            schema:
-              $ref: '#/components/schemas/Code'
-      responses:
-        '200':
-          description: OK
-        '201':
-          description: Created
         '401':
           description: Unauthorized
         '403':

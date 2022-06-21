@@ -18,7 +18,7 @@ import java.util.*;
 /**
  * Question
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-06-02T11:39:30.917961300+02:00[Europe/Paris]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-06-21T13:47:29.624415+02:00[Europe/Paris]")
 public class Question   {
   @JsonProperty("id_question")
   private Integer idQuestion;

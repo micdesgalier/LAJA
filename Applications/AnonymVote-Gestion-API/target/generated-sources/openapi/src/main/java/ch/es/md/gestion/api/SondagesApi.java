@@ -28,7 +28,7 @@ import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-06-02T11:39:30.917961300+02:00[Europe/Paris]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-06-21T13:47:29.624415+02:00[Europe/Paris]")
 @Validated
 @Tag(name = "sondages", description = "the sondages API")
 public interface SondagesApi {
@@ -100,6 +100,26 @@ public interface SondagesApi {
     default ResponseEntity<Void> fermerSondageUsingID(@Parameter(name = "id", description = "id", required = true) @PathVariable("id") Integer id
 
 ) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * GET /sondages/lastid : ListLastSondage
+     *
+     * @return OK (status code 200)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not Found (status code 404)
+     */
+    @Operation(summary = "ListLastSondage", tags={ "sondages-end-point", }, responses = {  @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation =  Integer.class))), @ApiResponse(responseCode = "401", description = "Unauthorized"), @ApiResponse(responseCode = "403", description = "Forbidden"), @ApiResponse(responseCode = "404", description = "Not Found") })
+        @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/sondages/lastid",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<Integer> listLastSondageUsingGET() {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
@@ -245,6 +265,39 @@ public interface SondagesApi {
         produces = { "application/json" }
     )
     default ResponseEntity<List<Sondage>> listSondagesOuvertsUsingGET() {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    String exampleString = "{ \"id_sondage\" : 0, \"ouvert\" : true, \"id_utilisateur\" : 6, \"sujet\" : \"sujet\", \"bloque\" : true }";
+                    ApiUtil.setExampleResponse(request, "application/json", exampleString);
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    /**
+     * GET /sondages/utilisateur/{login}/my
+     * Liste tout les sondages d&#39;un utilisateur
+     *
+     * @param login login (required)
+     * @return OK (status code 200)
+     *         or Unauthorized (status code 401)
+     *         or Forbidden (status code 403)
+     *         or Not Found (status code 404)
+     */
+    @Operation(summary = "", tags={ "sondages-end-point", }, responses = {  @ApiResponse(responseCode = "200", description = "OK", content = @Content(mediaType = "application/json", schema = @Schema(implementation =  Sondage.class))), @ApiResponse(responseCode = "401", description = "Unauthorized"), @ApiResponse(responseCode = "403", description = "Forbidden"), @ApiResponse(responseCode = "404", description = "Not Found") })
+        @RequestMapping(
+        method = RequestMethod.GET,
+        value = "/sondages/utilisateur/{login}/my",
+        produces = { "application/json" }
+    )
+    default ResponseEntity<List<Sondage>> listSondagesOwnByUtilisateurUsingGET(@Parameter(name = "login", description = "login", required = true) @PathVariable("login") String login
+
+) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
