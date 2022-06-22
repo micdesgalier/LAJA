@@ -1,12 +1,12 @@
 <template>
   <div class="itemChoix">
-    <h4 :id="choix.id_choix">{{ choix.choix }}<input type="checkbox" :id="'choix'+choix.id_choix"/></h4>
+    <h4 :id="choix.id_choix">{{ choix.choix }}</h4>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'ChoixItem',
+  name: 'ResultatsChoixItem',
   props: {
     choix: Object
   }

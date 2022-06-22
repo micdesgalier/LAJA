@@ -1,5 +1,6 @@
 <template>
   <div class="sondage">
+    <router-link to="/main">Menu princpal</router-link>
     <sondage-detail />
   </div>
 </template>

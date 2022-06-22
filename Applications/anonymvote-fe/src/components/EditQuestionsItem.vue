@@ -1,8 +1,8 @@
 <template>
   <div class="editQuestionItem">
-      <h3><input type="text" :value="question.question" :id="'question'+question.id_question" class="question"/><button v-on:click="saveQuestion(question.id_question)">S</button></h3>
+      <h3><input type="text" :value="question.question" :id="'question'+question.id_question" class="question"/><button v-on:click="saveQuestion(question.id_question)">S</button><br><br><button v-on:click="deleteQuestion(question.id_question)">SUPPRIMER</button></h3>
       <div class="choixSection">
-        <edit-choix-item v-for="choix in choixList" v-bind:choix="choix" v-bind:key="choix.id_choix"/>
+        <edit-choix-item v-for="choix in choixList" v-bind:choix="choix" v-bind:key="choix.id_choix" v-on:removeChoix="removeChoix($event)"/>
         <add-choix-item v-on:addChoix="addChoix(question.id_question)"/>
       </div>
   </div>
@@ -41,6 +41,13 @@ export default {
 
       var question = document.getElementById('question'+idQuestion).value
 
+      var emitData = []; 
+      
+      emitData.push(idQuestion);
+      emitData.push(question);
+
+      this.$emit('saveQuestionValue', emitData);
+
       SondageService.saveQuestion(idQuestion, this.$route.params.id, question);
     },
     addChoix(idQuestion) {
@@ -62,6 +69,15 @@ export default {
               SondageService.addChoix(newChoix);
           })
           .catch(err => console.log(err));
+    },
+    deleteQuestion(id) {
+        
+      SondageService.deleteQuestion(id);
+      this.$emit('removeQuestion', id);
+    },
+    removeChoix(idChoix) {
+      let pos = this.choixList.indexOf(this.choixList.find(x => x.id_choix === idChoix))
+      this.choixList.splice(pos, 1);
     }
   },
   created() {

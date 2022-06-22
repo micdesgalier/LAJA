@@ -3,10 +3,13 @@ package ch.es.md.gestion.api.endpoints;
 
 import ch.es.md.gestion.Entities.ChoixEntity;
 import ch.es.md.gestion.Entities.QuestionEntity;
+import ch.es.md.gestion.Entities.SondageEntity;
 import ch.es.md.gestion.api.QuestionsApi;
 import ch.es.md.gestion.api.exceptions.QuestionNotFoundException;
+import ch.es.md.gestion.api.exceptions.SondageNotFoundException;
 import ch.es.md.gestion.api.model.Choix;
 import ch.es.md.gestion.api.model.Question;
+import ch.es.md.gestion.repositories.ChoixRepository;
 import ch.es.md.gestion.repositories.QuestionRepository;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,9 @@ import java.util.Optional;
 public class QuestionsEndPoint implements QuestionsApi {
     @Autowired
     private QuestionRepository questionRepository;
+
+    @Autowired
+    private ChoixRepository choixRepository;
 
     @Value("${jwt.secret}")
     private String secretKey;
@@ -132,6 +138,9 @@ public class QuestionsEndPoint implements QuestionsApi {
         Optional<QuestionEntity> opt = questionRepository.findById(id);
 
         if (opt.isPresent()) {
+
+            choixRepository.deleteAllByQuestionId(id);
+
             QuestionEntity questionEntity = opt.get();
 
             questionRepository.delete(questionEntity);
@@ -139,7 +148,7 @@ public class QuestionsEndPoint implements QuestionsApi {
             return new ResponseEntity<Void>(HttpStatus.OK);
         } else {
 
-            throw new QuestionNotFoundException(id);
+            throw new SondageNotFoundException(id);
         }
     }
 }

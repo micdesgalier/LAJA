@@ -2,13 +2,13 @@
   <div class="detailSondage">
     <h1>{{this.sondage.sujet}}</h1>
     <questions-item v-for="question in questions" v-bind:question="question" v-bind:key="question.id_question"/>
+    <button v-on:click="saveReponses()">Enregistrer</button>
   </div>
 </template>
 
 <script>
 import SondageService from '../store/modules/SondageService.js'
 import QuestionsItem from './QuestionsItem.vue'
-
 
 export default {
   name: 'SondageDetail',
@@ -38,6 +38,24 @@ export default {
             });
           })
           .catch(err => console.log(err));
+    },
+    saveReponses() {
+        this.questions.forEach(element => {
+          SondageService.getChoixByIdQuestion(element.id_question)
+            .then(data => {
+              data.forEach(element2 => {
+
+                var checkedChoix = document.getElementById('choix'+element2.id_choix).checked
+
+                console.log(checkedChoix);
+                
+                //if(checkedChoix) {
+                  //SondageService.voteChoix(element2.id_choix);
+                //}
+              });
+            })
+            .catch(err => console.log(err));
+        });
     }
   },
   created() {

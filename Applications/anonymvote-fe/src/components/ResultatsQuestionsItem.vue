@@ -2,19 +2,19 @@
   <div class="questionItem">
     <h3>{{ question.question }}</h3>
     <div class="choixSection">
-        <choix-item v-for="choix in choixList" v-bind:choix="choix" v-bind:key="choix.id_choix" />
+        <resultats-choix-item v-for="choix in choixList" v-bind:choix="choix" v-bind:key="choix.id_choix" />
     </div>
   </div>
 </template>
 
 <script>
-import ChoixItem from './ChoixItem.vue'
+import ResultatsChoixItem from './ResultatsChoixItem.vue'
 import SondageService from '../store/modules/SondageService.js'
 
 export default {
-  name: 'QuestionsItem',
+  name: 'ResultatsChoixItem',
   components: {
-    ChoixItem
+    ResultatsChoixItem
   },
   data() {
 	return {

@@ -1,18 +1,18 @@
 <template>
-  <div class="sondage">
+  <div class="resultatsSondage">
     <router-link to="/main">Menu princpal</router-link>
-    <my-sondage-detail />
+    <resultats-sondage />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import MySondageDetail from '@/components/MySondageDetail.vue'
+import ResultatsSondage from '@/components/ResultatsSondage.vue'
 
 export default {
-  name: 'MySondageView',
+  name: 'SondageView',
   components: {
-    MySondageDetail
+    ResultatsSondage
   }
 }
 </script>

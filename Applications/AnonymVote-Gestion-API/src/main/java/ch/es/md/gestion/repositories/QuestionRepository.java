@@ -17,4 +17,7 @@ public interface QuestionRepository extends JpaRepository<QuestionEntity, Intege
     Integer findLastQuestionId();
     @Query("select c from choix c where c.id_question = ?1")
     List<ChoixEntity> findAllChoixByQuestionId(int id);
+    @Modifying
+    @Query("delete from question q where q.id_sondage = ?1")
+    void deleteAllBySondageId(int id);
 }

@@ -95,6 +95,21 @@ class SondageService {
           .catch(err => console.log(err));
     }
 
+    static deleteSondage(idSondage) {
+
+        axios.delete('http://localhost:9090/api/sondages/' + idSondage);
+    }
+
+    static deleteQuestion(idQuestion) {
+
+        axios.delete('http://localhost:9090/api/questions/' + idQuestion);
+    }
+
+    static deleteChoix(idChoix) {
+
+        axios.delete('http://localhost:9090/api/choix/' + idChoix);
+    }
+
     static saveQuestion(idQuestion, p_idSondage, p_question) 
     {
         var question;
@@ -105,10 +120,7 @@ class SondageService {
                 question.id_sondage = p_idSondage;
                 question.question = p_question;
                     
-                axios.put('http://localhost:9090/api/questions/' + idQuestion, { id_sondage: question.id_sondage, question: question.question})
-                    .then(()=>{
-                        location.reload();
-                    });
+                axios.put('http://localhost:9090/api/questions/' + idQuestion, { id_sondage: question.id_sondage, question: question.question});
             })
             .catch(err => console.log(err));
     }

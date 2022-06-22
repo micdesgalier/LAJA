@@ -2,7 +2,7 @@
   <div class="mySondages">
     <h1>{{ this.nomUtilisateur }}</h1>
     <h2>Liste des sondages créé par l'utilisateur</h2>
-    <my-sondages-list :sondages="mySondagesList"/>
+    <my-sondages-list :sondages="mySondagesList" v-on:removeSondage="removeSondage($event)"/>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
   },
   data() {
 		return {
-            nomUtilisateur: "",
+      nomUtilisateur: "",
 			mySondagesList: []
 		};
 	},
@@ -33,6 +33,11 @@ export default {
             this.nomUtilisateur = Login.login;
           })
           .catch(err => console.log(err));
+    },
+    removeSondage(idSondage) {
+
+        let pos = this.mySondagesList.indexOf(this.mySondagesList.find(x => x.id_sondage === idSondage))
+        this.mySondagesList.splice(pos, 1);
     }
   },
   created() {

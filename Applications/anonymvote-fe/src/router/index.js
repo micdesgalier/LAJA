@@ -29,6 +29,11 @@ const routes = [
     path: '/mysondage/:id',
     name: 'mysondage',
     component: () => import(/* webpackChunkName: "about" */ '../views/MySondageView.vue')
+  },
+  {
+    path: '/resultats/:id',
+    name: 'resultats',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ResultatsSondageView.vue')
   }
 ]
 

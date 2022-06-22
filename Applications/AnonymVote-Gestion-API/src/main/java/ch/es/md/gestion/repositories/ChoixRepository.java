@@ -11,4 +11,7 @@ public interface ChoixRepository extends JpaRepository<ChoixEntity, Integer> {
     @Query("select max(c.id_choix) from choix c")
     Integer findLastChoixId();
     ChoixEntity findById(int id);
+    @Modifying
+    @Query("delete from choix c where c.id_question = ?1")
+    void deleteAllByQuestionId(int id);
 }

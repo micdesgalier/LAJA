@@ -22,13 +22,9 @@ class UtilisateurService {
 
     static getUtilisateurByLogin(login) {
 
-        alert(login);
-
         const promise = axios.get('http://localhost:9090/api/utilisateurs/login/' + login)
         
         const dataPromise = promise.then((response) => response.data)
-
-        console.log
 
         return dataPromise;
     }

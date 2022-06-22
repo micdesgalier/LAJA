@@ -1,6 +1,6 @@
 <template>
   <div class="EditItemChoix">
-    <h4 :id="choix.id_choix"><input type="text" :value="choix.choix" :id="'choix'+choix.id_choix" class="choix"/><button v-on:click="saveChoix(choix.id_choix)">S</button></h4>
+    <h4 :id="choix.id_choix"><input type="text" :value="choix.choix" :id="'choix'+choix.id_choix" class="choix"/><button v-on:click="saveChoix(choix.id_choix)">S</button><button v-on:click="deleteChoix(choix.id_choix)">X</button></h4>
   </div>
 </template>
 
@@ -17,7 +17,12 @@ export default {
 
       var choix = document.getElementById('choix'+idChoix).value;
       SondageService.saveChoix(idChoix, choix);
-    } 
+    },
+    deleteChoix(id) {
+        
+      SondageService.deleteChoix(id);
+      this.$emit('removeChoix', id);
+    }
   },
 }
 </script>

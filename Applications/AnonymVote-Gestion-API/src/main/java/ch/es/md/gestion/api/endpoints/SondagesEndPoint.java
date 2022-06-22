@@ -12,6 +12,8 @@ import ch.es.md.gestion.api.model.Choix;
 import ch.es.md.gestion.api.model.Question;
 import ch.es.md.gestion.api.model.Sondage;
 import ch.es.md.gestion.api.model.Utilisateur;
+import ch.es.md.gestion.repositories.ChoixRepository;
+import ch.es.md.gestion.repositories.QuestionRepository;
 import ch.es.md.gestion.repositories.SondageRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -39,6 +41,12 @@ import java.util.Optional;
 public class SondagesEndPoint implements SondagesApi {
     @Autowired
     private SondageRepository sondageRepository;
+
+    @Autowired
+    private QuestionRepository questionRepository;
+
+    @Autowired
+    private ChoixRepository choixRepository;
 
     @Value("${jwt.secret}")
     private String secretKey;
@@ -278,9 +286,19 @@ public class SondagesEndPoint implements SondagesApi {
     @Override
     @Transactional
     public ResponseEntity<Void> deleteSondageUsingID(Integer id) {
+
         Optional<SondageEntity> opt = sondageRepository.findById(id);
+        List<QuestionEntity> questionEntities = sondageRepository.findAllQuestionBySondageId(id);
 
         if (opt.isPresent()) {
+
+            for (QuestionEntity questionEntity : questionEntities) {
+
+                choixRepository.deleteAllByQuestionId(questionEntity.getId());
+            }
+
+            questionRepository.deleteAllBySondageId(id);
+
             SondageEntity sondageEntity = opt.get();
 
             sondageRepository.delete(sondageEntity);

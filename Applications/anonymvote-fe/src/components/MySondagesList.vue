@@ -1,6 +1,6 @@
 <template>
   <div class="myListSondages">
-    <my-sondages-item v-for="sondage in sondages" v-bind:sondage="sondage" v-bind:key="sondage.id_sondage"/>
+    <my-sondages-item v-for="sondage in sondages" v-bind:sondage="sondage" v-bind:key="sondage.id_sondage" v-on:removeSondage="$emit('removeSondage', $event)"/>
   </div>
 </template>
 
