@@ -2,10 +2,13 @@
   <div class="myItemSondage">
     <router-link :to="{ name: 'mysondage', params: { id: sondage.id_sondage }}"><h3 :id="sondage.id_sondage">{{ sondage.sujet }}</h3></router-link>
     <div id="status">
-        <div id="statusOuvert" v-if="sondage.ouvert">
+        <div id="statusOuvert" v-if="sondage.ouvert && sondage.bloque">
             <p>OUVERT</p>
         </div>
-        <div id="statusFerme" v-else>
+        <div id="statusConfig" v-else-if="sondage.ouvert != true && sondage.bloque != true">
+            <p>CONFIG</p>
+        </div>
+        <div id="statusFerme" v-else-if="sondage.ouvert != true && sondage.bloque">
             <p>FERME</p>
         </div>
     </div>
@@ -35,6 +38,12 @@ h3 {
 }
 #statusOuvert {
     background-color: green;
+    padding: 0.6%;
+    border: black solid 2px;
+    margin-left: 5%;
+}
+#statusConfig {
+    background-color: darkmagenta;
     padding: 0.6%;
     border: black solid 2px;
     margin-left: 5%;

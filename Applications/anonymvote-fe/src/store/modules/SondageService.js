@@ -105,7 +105,10 @@ class SondageService {
                 question.id_sondage = p_idSondage;
                 question.question = p_question;
                     
-                axios.put('http://localhost:9090/api/questions/' + idQuestion, { id_sondage: question.id_sondage, question: question.question});
+                axios.put('http://localhost:9090/api/questions/' + idQuestion, { id_sondage: question.id_sondage, question: question.question})
+                    .then(()=>{
+                        location.reload();
+                    });
             })
             .catch(err => console.log(err));
     }

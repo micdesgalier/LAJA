@@ -16,7 +16,7 @@ public interface SondageRepository extends JpaRepository<SondageEntity, Integer>
     @Query("select s from sondage s inner join code c on s.id_sondage = c.id_sondage inner join utilisateur u on c.id_utilisateur = u.id_utilisateur where u.login = ?1 AND s.id_utilisateur <> u.id_utilisateur")
     List<SondageEntity> findAllSondagesUtilisateur(String login);
 
-    @Query("select s from sondage s inner join code c on s.id_sondage = c.id_sondage inner join utilisateur u on c.id_utilisateur = u.id_utilisateur where u.login = ?1 AND s.id_utilisateur = u.id_utilisateur")
+    @Query("select s from sondage s inner join utilisateur u on s.id_utilisateur = u.id_utilisateur where u.login = ?1")
     List<SondageEntity> findAllSondagesOwnByUtilisateur(String login);
 
     @Query("select s from sondage s where s.ouvert = true")
