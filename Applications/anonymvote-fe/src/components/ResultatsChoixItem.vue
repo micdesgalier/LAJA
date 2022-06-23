@@ -1,6 +1,6 @@
 <template>
   <div class="itemChoix">
-    <h4 :id="choix.id_choix">{{ choix.choix }}</h4>
+    <h4 :id="choix.id_choix">{{ choix.choix }}</h4><p>{{choix.nb_choisi}}/{{totalVote}}</p>
   </div>
 </template>
 
@@ -8,7 +8,8 @@
 export default {
   name: 'ResultatsChoixItem',
   props: {
-    choix: Object
+    choix: Object,
+    totalVote: Number
   }
 }
 </script>

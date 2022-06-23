@@ -1,9 +1,9 @@
 <template>
   <div class="detailMySondage">
-    <div id="sondageStatus">
+    <div id="sondageStatus" v-on:click="openSondage()">
         <p>Ouvrir le sondage</p>
     </div>
-    <p>Ajouter l'accès à un utilisateur : <input id="addUtilisateurSondage" type="text" /><button>Ajouter</button></p>
+    <p>Ajouter l'accès à un utilisateur : <input id="addUtilisateurSondage" type="text" /><button v-on:click="addUtilisateur()">Ajouter</button></p>
     <h1><input type="text" :value="sondage.sujet" id="sujet" name="sujet"/><button v-on:click="saveSondage()">S</button></h1>
     <edit-questions-item v-for="question in questions" v-bind:question="question" v-bind:key="question.id_question" v-on:saveQuestionValue="saveQuestion($event)" v-on:removeQuestion="removeQuestion($event)"/>
     <add-questions-item v-on:addQuestion="addQuestion()"/>
@@ -12,6 +12,7 @@
 
 <script>
 import SondageService from '../store/modules/SondageService.js'
+import UtilisateurService from '../store/modules/UtilisateurService.js'
 import EditQuestionsItem from './EditQuestionsItem.vue'
 import AddQuestionsItem from './AddQuestionsItem.vue'
 
@@ -78,6 +79,24 @@ export default {
 
             let pos = this.questions.indexOf(this.questions.find(x => x.id_question === idQuestion))
             this.questions.splice(pos, 1);
+        },
+        openSondage() {
+
+            SondageService.openSondage(this.sondage.id_sondage);
+        },
+        addUtilisateur() {
+
+            var login = document.getElementById("addUtilisateurSondage").value;
+
+            var utilisateur;
+
+            UtilisateurService.getUtilisateurByLogin(login)
+                .then(data => {
+                    utilisateur = data;
+            
+                    SondageService.addUtilisateurSondage(this.sondage.id_sondage, utilisateur);
+                })
+                .catch(err => console.log(err));
         }
     },
     created() {

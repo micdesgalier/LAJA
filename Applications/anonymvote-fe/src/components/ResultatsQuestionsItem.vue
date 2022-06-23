@@ -2,23 +2,24 @@
   <div class="questionItem">
     <h3>{{ question.question }}</h3>
     <div class="choixSection">
-        <resultats-choix-item v-for="choix in choixList" v-bind:choix="choix" v-bind:key="choix.id_choix" />
+        <resultats-choix-item v-for="choix in choixList" v-bind:choix="choix" v-bind:totalVote="totalVote" v-bind:key="choix.id_choix" />
     </div>
   </div>
 </template>
 
 <script>
-import ResultatsChoixItem from './ResultatsChoixItem.vue'
 import SondageService from '../store/modules/SondageService.js'
+import ResultatsChoixItem from './ResultatsChoixItem.vue';
 
 export default {
-  name: 'ResultatsChoixItem',
+  name: 'QuestionsItem',
   components: {
     ResultatsChoixItem
   },
   data() {
 	return {
-        choixList: []
+      choixList: [],
+      totalVote: 0,
 	};
   },
   props: {
@@ -30,6 +31,8 @@ export default {
         .then(data => {
             data.forEach(element => {
               this.choixList.push(element);
+              this.totalVote = this.totalVote + element.nb_choisi;
+              console.log(element);
             });
         })
         .catch(err => console.log(err));

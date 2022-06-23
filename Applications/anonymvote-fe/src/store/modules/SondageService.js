@@ -175,6 +175,31 @@ class SondageService {
     {
         axios.post('http://localhost:9090/api/choix', { id_choix: p_choix.id_choix, id_question: p_choix.id_question, choix: p_choix.choix, nb_choisi: p_choix.nb_choisi});
     }
+
+    static openSondage(idSondage) {
+
+        var sondage;
+
+        SondageService.getSondageById(idSondage)
+          .then(data => {
+            sondage = data;
+            sondage.ouvert = true;
+            sondage.bloque = true;
+            
+            axios.put('http://localhost:9090/api/sondages/' + idSondage, { id_utilisateur: sondage.id_utilisateur, sujet: sondage.sujet, ouvert: sondage.ouvert, bloque: sondage.bloque});
+          })
+          .catch(err => console.log(err));
+    }
+
+    static addUtilisateurSondage(idSondage, utilisateur) {
+
+        console.log(idSondage);
+        console.log(utilisateur.id_utilisateur);
+
+        const params = new URLSearchParams([['p_idUtilisateur', idSondage], ['p_idSondage', utilisateur.id_utilisateur]]);
+
+        axios.get('http://localhost:9090/api/codes/generate', {params});
+    }
 }
 
 export default SondageService;
